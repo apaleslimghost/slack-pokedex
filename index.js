@@ -12,6 +12,29 @@ const getFlavourText = pokedexEntry => pokedexEntry.flavor_text_entries.find(ent
 
 const getName = pokedexEntry => pokedexEntry.names.find(entry => entry.language.name === 'en').name;
 
+const getTypeColor = type => ({
+	normal: '#A8A77A',
+	fire: '#EE8130',
+	water: '#6390F0',
+	electric: '#F7D02C',
+	grass: '#7AC74C',
+	ice: '#96D9D6',
+	fighting: '#C22E28',
+	poison: '#A33EA1',
+	ground: '#E2BF65',
+	flying: '#A98FF3',
+	psychic: '#F95587',
+	bug: '#A6B91A',
+	rock: '#B6A136',
+	ghost: '#735797',
+	dragon: '#6F35FC',
+	dark: '#705746',
+	steel: '#B7B7CE',
+	fairy: '#D685AD',
+})[type];
+
+const getPrimaryType = mon => mon.types.find(entry => entry.slot === 1).type.name;
+
 export default async function(req, res) {
 	const body = await parseSlackBody(req);
 	console.log(body);
@@ -23,12 +46,16 @@ export default async function(req, res) {
 	if(mons.length) {
 		send(res, 200, {
 			attachments: await Promise.all(mons.map(async mon => {
-				const data = await (await getMon(mon)).json();
-				const dex = await (await getDex(mon)).json();
+				const [data, dex] = await Promise.all([
+					(await getMon(mon)).json(),
+					(await getDex(mon)).json(),
+				]);
+
 				return {
 					title: getName(dex),
 					image_url: (Math.random() < 1/8192 ? data.sprites.front_shiny : data.sprites.front_default),
 					footer: getFlavourText(dex),
+					color: getTypeColor(getPrimaryType(data)),
 			 	};
 			}))
 		});
