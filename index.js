@@ -36,12 +36,8 @@ const getTypeColor = type => ({
 const getPrimaryType = mon => mon.types.find(entry => entry.slot === 1).type.name;
 
 export default async function(req, res) {
-	const body = await parseSlackBody(req);
-	console.log(body);
-	const {text} = body;
-	const w = words(text);
-	const mons = w.map(sanitizePokemonName).filter(isPokemon);
-
+	const {text} = await parseSlackBody(req);
+	const mons = words(text).map(sanitizePokemonName).filter(isPokemon);
 
 	if(mons.length) {
 		send(res, 200, {
