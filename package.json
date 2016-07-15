@@ -1,0 +1,31 @@
+{
+  "name": "slack-pokedex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro -p 3005 index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quarterto/slack-pokedex.git"
+  },
+  "keywords": [],
+  "author": "Matt Brennan <matt@153.io> (http://blog.153.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/quarterto/slack-pokedex/issues"
+  },
+  "homepage": "https://github.com/quarterto/slack-pokedex#readme",
+  "dependencies": {
+    "@quarterto/is-pokemon": "^1.1.0",
+    "@quarterto/sanitize-pokemon-name": "^1.1.0",
+    "@quarterto/slack-body": "^1.1.0",
+    "lodash": "^4.13.1",
+    "micro": "^4.1.1",
+    "node-fetch": "^1.5.3"
+  },
+  "devDependencies": {
+    "now": "^0.17.1"
+  }
+}
