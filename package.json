@@ -20,7 +20,7 @@
   "dependencies": {
     "@quarterto/is-pokemon": "^1.1.0",
     "@quarterto/sanitize-pokemon-name": "^1.1.0",
-    "@quarterto/slack-body": "^1.1.0",
+    "@quarterto/slack-body": "^1.3.0",
     "lodash": "^4.13.1",
     "micro": "^4.1.1",
     "node-fetch": "^1.5.3"
