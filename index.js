@@ -13,7 +13,9 @@ const getFlavourText = pokedexEntry => pokedexEntry.flavor_text_entries.find(ent
 const getName = pokedexEntry => pokedexEntry.names.find(entry => entry.language.name === 'en').name;
 
 export default async function(req, res) {
-	const {text} = await parseSlackBody(req);
+	const body = await parseSlackBody(req);
+	console.log(body);
+	const {text} = body;
 	const w = words(text);
 	const mons = w.map(sanitizePokemonName).filter(isPokemon);
 
