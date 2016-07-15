@@ -1,9 +1,8 @@
 import {send} from 'micro-core';
 import fetch from 'node-fetch';
-import isPokemon from '@quarterto/is-pokemon';
+import apropokemon from '@quarterto/apropokemon';
 import sanitizePokemonName from '@quarterto/sanitize-pokemon-name';
 import parseSlackBody from '@quarterto/slack-body';
-import {words} from 'lodash';
 
 const getMon = mon => fetch(`http://pokeapi.co/api/v2/pokemon/${mon}`);
 const getDex = mon => fetch(`http://pokeapi.co/api/v2/pokemon-species/${mon}`);
@@ -37,7 +36,7 @@ const getPrimaryType = mon => mon.types.find(entry => entry.slot === 1).type.nam
 
 export default async function(req, res) {
 	const {text} = await parseSlackBody(req);
-	const mons = words(text).map(sanitizePokemonName).filter(isPokemon);
+	const mons = apropokemon(text).map(sanitizePokemonName);
 
 	if(mons.length) {
 		send(res, 200, {
