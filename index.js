@@ -22,14 +22,13 @@ export default async function(req, res) {
 
 	if(mons.length) {
 		send(res, 200, {
-			text: ':lure-module:',
 			attachments: await Promise.all(mons.map(async mon => {
 				const data = await (await getMon(mon)).json();
 				const dex = await (await getDex(mon)).json();
 				return {
-					pretext: getName(dex),
+					title: getName(dex),
 					image_url: (Math.random() < 1/8192 ? data.sprites.front_shiny : data.sprites.front_default),
-					text: getFlavourText(dex),
+					footer: getFlavourText(dex),
 			 	};
 			}))
 		});
