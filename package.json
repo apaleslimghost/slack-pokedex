@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "micro -p 3005 index.js"
+    "start": "micro -p 3005 index.js",
+    "deploy": "now"
   },
   "repository": {
     "type": "git",
