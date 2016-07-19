@@ -36,7 +36,7 @@ const getPrimaryType = mon => mon.types.find(entry => entry.slot === 1).type.nam
 
 export default async function(req, res) {
 	const {text} = await parseSlackBody(req);
-	const mons = apropokemon(text).map(sanitizePokemonName);
+	const mons = Array.from(new Set(apropokemon(text).map(sanitizePokemonName)));
 
 	if(mons.length) {
 		send(res, 200, {
