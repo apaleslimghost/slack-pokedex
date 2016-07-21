@@ -23,7 +23,8 @@
     "@quarterto/sanitize-pokemon-name": "^1.1.0",
     "@quarterto/slack-body": "^1.3.0",
     "micro": "^4.1.1",
-    "node-fetch": "^1.5.3"
+    "node-fetch": "^1.5.3",
+    "pokemon-details": "^1.0.1"
   },
   "devDependencies": {
     "now": "^0.17.1"

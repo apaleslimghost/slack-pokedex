@@ -1,11 +1,9 @@
 import {send} from 'micro-core';
-import fetch from 'node-fetch';
 import apropokemon from '@quarterto/apropokemon';
 import sanitizePokemonName from '@quarterto/sanitize-pokemon-name';
+import pokemonDetails from 'pokemon-details';
 import parseSlackBody from '@quarterto/slack-body';
 
-const getMon = mon => fetch(`http://pokeapi.co/api/v2/pokemon/${mon}`);
-const getDex = mon => fetch(`http://pokeapi.co/api/v2/pokemon-species/${mon}`);
 const coolOffSet = new Set();
 const coolOff = mon => {
 	if (!coolOffSet.has(mon)) {
@@ -48,19 +46,16 @@ export default async function(req, res) {
 
 	if(mons.length) {
 		send(res, 200, {
-			attachments: await Promise.all(mons.map(async mon => {
-				const [data, dex] = await Promise.all([
-					(await getMon(mon)).json(),
-					(await getDex(mon)).json(),
-				]);
+			attachments: mons.map(mon => {
+				const {pokemon, species} = pokemonDetails(mon);
 
 				return {
-					title: getName(dex),
-					image_url: (Math.random() < 1/8192 ? data.sprites.front_shiny : data.sprites.front_default),
-					footer: getFlavourText(dex),
-					color: getTypeColor(getPrimaryType(data)),
+					title: getName(species),
+					image_url: (Math.random() < 1/8192 ? pokemon.sprites.front_shiny : pokemon.sprites.front_default),
+					footer: getFlavourText(species),
+					color: getTypeColor(getPrimaryType(pokemon)),
 			 	};
-			}))
+			})
 		});
 	} else send(res, 200, {});
 }
