@@ -6,6 +6,13 @@ import parseSlackBody from '@quarterto/slack-body';
 
 const getMon = mon => fetch(`http://pokeapi.co/api/v2/pokemon/${mon}`);
 const getDex = mon => fetch(`http://pokeapi.co/api/v2/pokemon-species/${mon}`);
+const coolOffSet = new Set();
+const coolOff = mon => {
+	if (!coolOffSet.has(mon)) {
+		coolOffSet.add(mon);
+		setTimeout(() => coolOffSet.delete(mon), 10000);
+	}
+}
 
 const getFlavourText = pokedexEntry => pokedexEntry.flavor_text_entries.find(entry => entry.language.name === 'en' && entry.version.name === 'alpha-sapphire').flavor_text;
 
@@ -36,7 +43,8 @@ const getPrimaryType = mon => mon.types.find(entry => entry.slot === 1).type.nam
 
 export default async function(req, res) {
 	const {text} = await parseSlackBody(req);
-	const mons = Array.from(new Set(apropokemon(text).map(sanitizePokemonName)));
+	const mons = Array.from(new Set(apropokemon(text).map(sanitizePokemonName))).filter((mon) => !coolOffSet.has(mon));
+	mons.forEach(coolOff)
 
 	if(mons.length) {
 		send(res, 200, {
