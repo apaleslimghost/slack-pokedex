@@ -4,11 +4,13 @@ import sanitizePokemonName from '@quarterto/sanitize-pokemon-name';
 import pokemonDetails from 'pokemon-details';
 import parseSlackBody from '@quarterto/slack-body';
 
+const COOLOFF_LENGTH = 1 * 60 * 1e3;
+
 const coolOffSet = new Set();
 const coolOff = mon => {
 	if (!coolOffSet.has(mon)) {
 		coolOffSet.add(mon);
-		setTimeout(() => coolOffSet.delete(mon), 10000);
+		setTimeout(() => coolOffSet.delete(mon), COOLOFF_LENGTH);
 	}
 }
 
