@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/quarterto/slack-pokedex#readme",
   "dependencies": {
-    "@quarterto/apropokemon": "^1.7.0",
+    "@quarterto/apropokemon": "^1.8.0",
     "@quarterto/sanitize-pokemon-name": "^1.1.0",
     "@quarterto/slack-body": "^1.3.0",
     "micro": "^4.1.1",
