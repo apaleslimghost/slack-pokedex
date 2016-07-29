@@ -54,7 +54,7 @@ export default async function(req, res) {
 				return {
 					author_name: getName(species),
 					image_url: (Math.random() < 1/8192 ? pokemon.sprites.front_shiny : pokemon.sprites.front_default),
-					footer: getFlavourText(species),
+					footer: getFlavourText(species).replace(/\n/g, ' '),
 					color: getTypeColor(getPrimaryType(pokemon)),
 			 	};
 			})
