@@ -52,7 +52,7 @@ export default async function(req, res) {
 				const {pokemon, species} = pokemonDetails(mon);
 
 				return {
-					title: getName(species),
+					author_name: getName(species),
 					image_url: (Math.random() < 1/8192 ? pokemon.sprites.front_shiny : pokemon.sprites.front_default),
 					footer: getFlavourText(species),
 					color: getTypeColor(getPrimaryType(pokemon)),
