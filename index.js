@@ -14,7 +14,13 @@ const coolOff = mon => {
 	}
 }
 
-const getFlavourText = pokedexEntry => pokedexEntry.flavor_text_entries.find(entry => entry.language.name === 'en' && entry.version.name === 'alpha-sapphire').flavor_text;
+const getFlavourText = pokedexEntry => {
+	if (getName(pokedexEntry) === 'Pidgey') {
+		return 'This is only good for the meat grinder, nothing more.'
+	} else {
+		return pokedexEntry.flavor_text_entries.find(entry => entry.language.name === 'en' && entry.version.name === 'alpha-sapphire').flavor_text;
+	}
+}
 
 const getName = pokedexEntry => pokedexEntry.names.find(entry => entry.language.name === 'en').name;
 
