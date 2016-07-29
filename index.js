@@ -15,7 +15,7 @@ const coolOff = mon => {
 }
 
 const getFlavourText = pokedexEntry => {
-	if (getName(pokedexEntry) === 'Pidgey') {
+	if (getName(pokedexEntry) === 'Pidgey'||'Rattata') {
 		return 'This is only good for the meat grinder, nothing more.'
 	} else {
 		return pokedexEntry.flavor_text_entries.find(entry => entry.language.name === 'en' && entry.version.name === 'alpha-sapphire').flavor_text;
